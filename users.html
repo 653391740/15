@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: transparent;
+        }
+
+        .switch {
+            position: relative;
+            display: block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .switch label {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+            margin: 0;
+        }
+
+        .switch label:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        .switch input:checked+label {
+            background-color: #2196F3;
+        }
+
+        .switch input:checked+label:before {
+            transform: translateX(26px);
+        }
+
+        .table-responsive {
+            background-color: #fff;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15) !important;
+            padding: 20px;
+            overflow-x: visible;
+
+            table {
+                border: 1px solid #EBEEF5;
+                border-radius: 5px;
+
+                th,
+                td {
+                    height: 50px;
+                    vertical-align: middle !important;
+                    border: 1px solid #EBEEF5 !important;
+                }
+
+                button {
+                    margin-right: 10px;
+                }
+            }
+
+            .header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+
+                .input {
+                    border: 1px solid #DCDFE6;
+                    border-radius: 3px;
+                    width: 450px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    overflow: hidden;
+                    margin-right: 20px;
+
+                    input {
+                        border: 0;
+                        outline: none;
+                        flex: 1;
+                        padding-left: 10px;
+
+                        &::placeholder {
+                            color: #c0c4cc;
+                        }
+                    }
+
+                    div {
+                        background-color: #f5f7fa;
+                        width: 55px;
+                        line-height: 40px;
+                        text-align: center;
+                        color: #c0c4cc;
+                        border-left: 1px solid #DCDFE6;
+                    }
+                }
+
+                button {
+                    height: 40px;
+                }
+            }
+
+            .footer {
+                display: flex;
+                align-items: center;
+
+                &>* {
+                    margin-right: 20px;
+                }
+
+                .dropdown {
+                    position: relative;
+                    border: 1px solid #DCDFE6;
+                    border-radius: 3px;
+                    width: 100px;
+                    line-height: 30px;
+                    cursor: pointer;
+
+                    &:hover {
+                        border-color: #409eff;
+                    }
+
+                    &.show {
+                        .dropdown-menu {
+                            display: block;
+                        }
+
+                        span {
+                            transform: translateY(-50%) rotate(-225deg);
+                        }
+                    }
+
+                    p {
+                        margin-bottom: 0;
+                        margin-left: -10px;
+                        text-align: center;
+                    }
+
+                    span {
+                        position: absolute;
+                        top: 50%;
+                        right: 10px;
+                        transition: all .3s;
+                        transform: translateY(-50%) rotate(-45deg);
+                        padding: 3px;
+                        border-left: 1px solid #C0C4CC;
+                        border-bottom: 1px solid #C0C4CC;
+                    }
+                }
+            }
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <ol class="breadcrumb">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">用户管理</a></li>
+        <li class="active">用户列表</li>
+    </ol>
+    <div class="table-responsive">
+        <div class="header">
+            <div class="input">
+                <input type="text" placeholder="请输入内容">
+                <div class="glyphicon glyphicon-search"></div>
+            </div>
+            <button type="button" class="btn btn-primary">添加用户</button>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>姓名</th>
+                    <th>邮箱</th>
+                    <th>电话</th>
+                    <th>角色</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <div class="footer">
+            <div class="total">共 0 条</div>
+            <div class="dropdown">
+                <p>10条/页</p>
+                <span></span>
+                <ul class="dropdown-menu">
+                    <li><a class="2" href="#">2条/页</a></li>
+                    <li><a class="5" href="#">5条/页</a></li>
+                    <li><a class="10" href="#">10条/页</a></li>
+                    <li><a class="15" href="#">15条/页</a></li>
+                </ul>
+            </div>
+            <ul class="pagination">
+                <li class="prev">
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="next">
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script type="module">
+        import { request } from './utils.js'
+        const token = localStorage.getItem('token')
+        const totals = document.querySelector('.total')
+        const dropdown = document.querySelector('.dropdown')
+        const next = document.querySelector('.next')
+        const prev = document.querySelector('.prev')
+        const tbody = document.querySelector('tbody')
+        const addbtn = document.querySelector('.btn-primary')
+        const modal = document.querySelector('.modal')
+        const searchbtn = document.querySelector('.glyphicon-search')
+        const input = document.querySelector('input')
+
+        addbtn.addEventListener('click', () => {
+            windowMessage('openModal')
+        })
+        function windowMessage(type, message) {
+            window.parent.postMessage({
+                type,
+                message
+            }, '*');
+        }
+        window.addEventListener('message', (e) => {
+            if (e.data.type === 'closeModal') {
+                pagedata = {
+                    pagenum: 1,
+                    pagesize: 10,
+                }
+                axios(pagedata, true)
+            }
+        })
+        searchbtn.addEventListener('click', () => {
+            pagedata.query = input.value
+            axios(pagedata, true)
+        })
+
+        if (!token) {
+            window.location.href = "./index.html"
+        }
+        let pagedata = {
+            pagenum: 1,
+            pagesize: 10
+        }
+        let num = 0// 总页数
+        function axios(pagedata, is = false) {
+            request({
+                method: 'GET',
+                url: '/users',
+                data: pagedata,
+                headers: {
+                    "Authorization": token,
+                },
+                success: (res) => {
+                    let { meta: { status, msg }, data } = res
+                    if (status !== 200) return console.log(res);
+                    let { total, users } = data
+                    if (is) pagetotal(total)
+                    totals.innerHTML = `共${total}条`
+                    updata(users)
+                }
+            })
+        }
+        axios(pagedata, true)
+
+        dropdown.addEventListener('click', () => {
+            dropdown.classList.toggle('show')
+            dropdown.querySelector('.dropdown-menu').addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') {
+                    dropdown.querySelector('p').innerHTML = e.target.innerHTML
+                    pagedata = {
+                        pagenum: 1,
+                        pagesize: Number(e.target.className)
+                    }
+                    axios(pagedata, true)
+                }
+            })
+        })
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('show')
+            }
+        })
+        function updata(arr) {
+            tbody.innerHTML = '' // 清空tbody内容
+            arr.forEach((item, index) => {
+                let tr = document.createElement('tr')
+                const td1 = document.createElement('td')
+                td1.textContent = item.id
+                tr.appendChild(td1)
+
+                const td2 = document.createElement('td')
+                td2.textContent = item.username
+                tr.appendChild(td2)
+
+                const td3 = document.createElement('td')
+                td3.textContent = item.email
+                tr.appendChild(td3)
+
+                const td4 = document.createElement('td')
+                td4.textContent = item.mobile
+                tr.appendChild(td4)
+
+                const td5 = document.createElement('td')
+                td5.textContent = item.role_name
+                tr.appendChild(td5)
+
+                const td6 = document.createElement('td')
+                const switchDiv = document.createElement('div')
+                switchDiv.className = 'switch'
+                const input = document.createElement('input')
+                input.type = 'checkbox'
+                input.id = `switchBtn${index}` // 为每个开关添加唯一id
+                input.checked = item.mg_state === 1 ? true : false
+                const label = document.createElement('label')
+                label.setAttribute('for', `switchBtn${index}`) // 关联对应的input
+                switchDiv.appendChild(input)
+                switchDiv.appendChild(label)
+                td6.appendChild(switchDiv)
+                tr.appendChild(td6)
+
+                const td7 = document.createElement('td')
+                const editBtn = document.createElement('button')
+                editBtn.className = 'btn btn-info glyphicon glyphicon-pencil'
+                const deleteBtn = document.createElement('button')
+                deleteBtn.className = 'btn btn-danger glyphicon glyphicon-trash'
+                const assignBtn = document.createElement('button')
+                assignBtn.className = 'btn btn-warning glyphicon glyphicon-cog'
+                td7.appendChild(editBtn)
+                td7.appendChild(deleteBtn)
+                td7.appendChild(assignBtn)
+                tr.appendChild(td7)
+                tbody.appendChild(tr)
+
+                input.addEventListener('change', () => {
+                    let userdata = { id: item.id, type: input.checked ? 1 : 0 }
+                    upuserstate(userdata)
+                })
+
+                editBtn.addEventListener('click', () => {
+                    windowMessage('editUser', item)
+                })
+                deleteBtn.addEventListener('click', () => {
+                    request({
+                        method: 'DELETE',
+                        url: `/users/${item.id}`,
+                        headers: {
+                            "Authorization": token,
+                        },
+                        success: (res) => {
+                            let { meta: { status, msg }, data } = res
+                            if (status !== 200) return console.log(res);
+                            windowMessage('alert', msg)
+                            setTimeout(() => {
+                                axios(pagedata, true)
+                            }, 500)
+                        }
+                    })
+                })
+                assignBtn.addEventListener('click', () => {
+                    windowMessage('assignUser', item)
+                })
+            })
+        }
+
+        function upuserstate(user) {
+            request({
+                method: 'PUT',
+                url: `/users/${user.id}/state/${user.type}`,
+                headers: {
+                    "Authorization": token,
+                },
+                success: (res) => {
+                    let { meta: { status, msg }, data } = res
+                    if (status !== 200) return console.log(res);
+                    windowMessage('alert', msg)
+                }
+            })
+        }
+
+        function pagetotal(total) {
+            num = Math.ceil(total / pagedata.pagesize) // 计算总页数
+            const allli = document.querySelectorAll('.pagination li:not(.next):not(.prev)')
+            allli.forEach(item => {
+                item.parentNode.removeChild(item)
+            })
+            for (let i = 0; i < num; i++) {
+                let li = document.createElement('li')
+                let a = document.createElement('a')
+                li.appendChild(a)
+                a.href = '#'
+                a.textContent = i + 1
+                if (i === pagedata.pagenum - 1) {
+                    li.classList.add('active')
+                }
+                next.parentNode.insertBefore(li, next)
+                li.addEventListener('click', (e) => {
+                    e.preventDefault() // 阻止默认跳转行为
+                    pagedata.pagenum = i + 1 // 更新当前页码
+                    // 更新active状态
+                    document.querySelectorAll('.pagination li').forEach(item => {
+                        item.classList.remove('active')
+                    })
+                    li.classList.add('active')
+                    axios(pagedata) // 重新请求数据
+                })
+            }
+        }
+        function uppagenum() {
+            const allli = document.querySelectorAll('.pagination li:not(.next):not(.prev)')
+            allli.forEach(item => {
+                item.classList.remove('active')
+            })
+            allli[pagedata.pagenum - 1].classList.add('active')
+            axios(pagedata)
+        }
+        prev.addEventListener('click', () => {
+            if (pagedata.pagenum > 1) {
+                pagedata.pagenum--
+                uppagenum()
+            }
+        })
+        next.addEventListener('click', () => {
+            if (pagedata.pagenum < num) {
+                pagedata.pagenum++
+                uppagenum()
+            }
+        })
+
+    </script>
+</body>
+
+</html>
